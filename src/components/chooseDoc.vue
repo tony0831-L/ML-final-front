@@ -30,15 +30,6 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
-import { useRouter } from "vue-router";
-import { Session } from "../interfaces/Session";
-import { ElMessage } from "element-plus";
-
-const loading = ref<boolean>(true);
-const sessions = ref<Array<Session>>();
-const router = useRouter();
-const props = defineProps(['id'])
 const emitEvents = defineEmits(['setSubject'])
 
 const ClickHandler = (link: string,title:string) => {

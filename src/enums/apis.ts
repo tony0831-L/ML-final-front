@@ -1,4 +1,4 @@
-const prefix = "http://localhost:2083"
+const prefix = "http://163.13.201.151:6148"
 
 export enum apis{
     /**

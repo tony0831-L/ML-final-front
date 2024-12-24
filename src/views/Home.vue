@@ -27,7 +27,6 @@ import { onMounted, ref } from "vue";
 import { asyncGet } from "../utils/fetch";
 import { apis } from "../enums/apis";
 import { resp } from "../interfaces/resp";
-import { UserInfo } from "../interfaces/UserInfo";
 import { useRouter } from "vue-router";
 import { Session } from "../interfaces/Session";
 import { ElMessage } from "element-plus";

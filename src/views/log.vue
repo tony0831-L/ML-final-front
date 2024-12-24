@@ -28,7 +28,7 @@
                 <div class="input">
                     <div class="btns">
                         <i class="bi bi-paperclip"></i>
-                        <input type="text" placeholder="傳送訊息" v-model="question"  @keyup.enter="submit" v-if="!pending">
+                        <input type="text" placeholder="傳送訊息" v-model="question" @keyup.enter="submit" v-if="!pending">
                         <input type="text" placeholder="🤔Assistant 正在思考.." disabled v-else>
                         <i class="bi bi-arrow-up submit" @click="submit"></i>
                     </div>
@@ -39,7 +39,7 @@
     </div>
 </template>
 <script lang="ts" setup>
-import { nextTick, onBeforeMount, onMounted, ref } from 'vue';
+import { nextTick, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { asyncGet, asyncPatch, asyncPost, asyncPut } from '../utils/fetch';
 import { apis } from '../enums/apis';
@@ -66,7 +66,23 @@ const mdConfig: Options = {
 
 const plugins = [MarkdownItAnchor];
 
-const update = () => {
+const update = async () => {
+    await nextTick();
+    //@ts-ignore
+    import('prismjs/components/prism-jsx')
+    //@ts-ignore
+    import('prismjs/components/prism-python')
+    //@ts-ignore
+    import('prismjs/components/prism-java')
+    //@ts-ignore
+    import('prismjs/components/prism-nginx')
+    //@ts-ignore
+    import('prismjs/components/prism-bash')
+    //@ts-ignore
+    import('prismjs/components/prism-typescript')
+    //@ts-ignore
+    import('prismjs/components/prism-swift')
+
     Prism.highlightAll();
 };
 
@@ -88,7 +104,7 @@ const setSubject = async (link: string, title: string) => {
 }
 
 const submit = async () => {
-    if (question.value ) {
+    if (question.value) {
         pending.value = true
         const resp: resp<any> = await asyncPost(apis.askWithDoc, {
             text: question.value,
@@ -101,26 +117,12 @@ const submit = async () => {
         }
 
         pending.value = false
-    }else{
+    } else {
         ElMessage.error(`😅不能發送空訊息`);
     }
-
+    await nextTick();
+    await update();
 }
-
-onBeforeMount(() => {
-    //@ts-ignore
-    import('prismjs/components/prism-python')
-    //@ts-ignore
-    import('prismjs/components/prism-java')
-    //@ts-ignore
-    import('prismjs/components/prism-nginx')
-    //@ts-ignore
-    import('prismjs/components/prism-bash')
-    //@ts-ignore
-    import('prismjs/components/prism-typescript')
-    //@ts-ignore
-    import('prismjs/components/prism-swift')
-})
 
 const syncLog = async () => {
     if (session.value) {
@@ -131,6 +133,9 @@ const syncLog = async () => {
             messages.value = []
         }
     }
+
+    await nextTick();
+    await update();
 }
 
 const syncSession = async () => {
@@ -138,6 +143,9 @@ const syncSession = async () => {
     if (res.code == 200) {
         session.value = res.body;
     }
+
+    await nextTick();
+    await update();
 }
 
 
@@ -148,7 +156,7 @@ onMounted(async () => {
     loading.value = false;
 
     await nextTick();
-    Prism.highlightAll();
+    await update();
 });
 </script>
 
