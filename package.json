@@ -1,0 +1,27 @@
+{
+  "name": "ccuvr-front",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vue-tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@types/prismjs": "^1.26.5",
+    "element-plus": "^2.9.0",
+    "markdown-it-anchor": "^9.2.0",
+    "prismjs": "^1.29.0",
+    "sass-embedded": "^1.81.0",
+    "vue": "^3.5.13",
+    "vue-markdown-render": "^2.2.1",
+    "vue-router": "^4.5.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.1",
+    "typescript": "~5.6.2",
+    "vite": "^6.0.1",
+    "vue-tsc": "^2.1.10"
+  }
+}
